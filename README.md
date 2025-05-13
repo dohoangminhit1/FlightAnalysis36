@@ -4,9 +4,9 @@ This project implements a Lambda Architecture for analyzing flight data using Ap
 
 ## Requirements
 
-- **Docker** and **Docker Compose**: Install from [Docker official site](https://docs.docker.com/get-docker/).
-- **Hadoop (HDFS)**: Version 3.x, installed and running. See [Hadoop setup guide](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html).
-- **Python**: Version 3.x, with a virtual environment recommended (`python -m venv env`).
+- **Docker** and **Docker Compose**.
+- **Hadoop (HDFS)**: Version 3.4.1.
+- **Python**: Version 3.10.13, with a virtual environment recommended (`python -m venv env`).
 - **Apache Kafka**: Managed via Docker (included in `docker-compose.yml`).
 - **Elasticsearch**: Managed via Docker (included in `docker-compose.yml`).
 - **Kibana**: Managed via Docker for visualization (included in `docker-compose.yml`).
@@ -14,14 +14,14 @@ This project implements a Lambda Architecture for analyzing flight data using Ap
 
 ## Dataset
 
-The project uses flight data in CSV format (e.g., from Kaggle's flight dataset). To prepare the dataset:
+The project uses flight data in CSV format. To prepare the dataset:
 
-1. Download the dataset from a source like [Kaggle Flights Data](https://www.kaggle.com/datasets).
+1. Download the dataset from [Flights Data](https://www.transtats.bts.gov/).
 2. Place the CSV files in a local directory (e.g., `./data/`).
 3. Upload the files to HDFS:
    ```bash
-   hdfs dfs -mkdir /flight-data
-   hdfs dfs -put ./data/*.csv /flight-data
+   hdfs dfs -mkdir /bigdata/raw_data
+   hdfs dfs -put ./data/*.csv /bigdata/raw_data
    ```
 
 ## Architecture
@@ -81,9 +81,9 @@ Processed data is stored in Elasticsearch and visualized with Kibana:
    ```
    Then run:
    ```bash
-   spark-submit /path/to/spark-preprocessing.py
-   spark-submit /path/to/spark.py
-   spark-submit /path/to/spark-ml.py
+   spark-submit /apps/spark-preprocessing.py
+   spark-submit /apps/spark.py
+   spark-submit /apps/spark-ml.py
    ```
 
 4. **Run speed layer**:
@@ -92,8 +92,6 @@ Processed data is stored in Elasticsearch and visualized with Kibana:
 
 5. **Visualize results**:
    Open Kibana at `http://localhost:5601`, create an index pattern, and build dashboards.
-
-**Note**: Check container logs with `docker logs <container_name>` if errors occur.
 
 ## Results
 
@@ -104,3 +102,9 @@ After running the project, expect:
 - **Visualization**: Dashboards in Kibana showing trends and predictions.
 
 Sample dashboard: A line chart of flight delays over time or a heatmap of delay hotspots.
+
+## Sample Dashboard
+
+Here is an example of a dashboard visualizing flight delays:
+
+![Sample Dashboard](imgs/5.png)

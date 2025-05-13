@@ -4,13 +4,12 @@ import os
 import re
 import sys
 import xml.etree.ElementTree as ET
-from xml.dom import minidom  # Để ghi XML đẹp hơn (tùy chọn)
+from xml.dom import minidom  
 
 # ----- Cấu hình cần kiểm tra/thay đổi -----
 # Tên interface mạng chính của máy host cần lấy IP
-NETWORK_INTERFACE = "wlp4s0"  # !!! THAY ĐỔI NẾU CẦN !!!
+NETWORK_INTERFACE = "wlp4s0" 
 
-# Danh sách tên các thuộc tính trong hdfs-site.xml cần kiểm tra/cập nhật IP
 HDFS_PROPERTIES_TO_UPDATE = [
     "dfs.datanode.address",
     "dfs.datanode.http.address",
@@ -21,17 +20,16 @@ HDFS_PROPERTIES_TO_UPDATE = [
 
 # Danh sách tên các thuộc tính trong core-site.xml cần kiểm tra/cập nhật IP
 CORE_PROPERTIES_TO_UPDATE = [
-    "fs.defaultFS"  # Thuộc tính chính trong core-site.xml
+    "fs.defaultFS"  
 ]
 
 # Đường dẫn đến thư mục cài đặt Hadoop
-HADOOP_HOME = "/usr/local/hadoop"
+HADOOP_HOME = "/home/minh/hadoop"
 # ------------------------------------------
 
 # Đường dẫn được suy ra
 HADOOP_CONF_DIR = os.path.join(HADOOP_HOME, "etc/hadoop")
 HDFS_SITE_FILE = os.path.join(HADOOP_CONF_DIR, "hdfs-site.xml")
-# CORE_SITE_FILE = os.path.join("/home/minh/codeproject/bigdata/hadoop", "core-site.xml")  # Thêm core-site.xml
 HADOOP_SBIN_DIR = os.path.join(HADOOP_HOME, "sbin")
 STOP_DFS_CMD = os.path.join(HADOOP_SBIN_DIR, "stop-dfs.sh")
 START_DFS_CMD = os.path.join(HADOOP_SBIN_DIR, "start-dfs.sh")
@@ -95,7 +93,7 @@ def update_config_file_dynamically(current_host_ip, config_file, properties_to_u
                 ip_in_config = match.group(1)
                 print(f"  Found IP '{ip_in_config}' in property '{name_elem.text}'")
                 if configured_ip is None:
-                    configured_ip = ip_in_config  # Lấy IP đầu tiên tìm thấy làm IP tham chiếu
+                    configured_ip = ip_in_config  
                 elif configured_ip != ip_in_config:
                     print(f"  Warning: Inconsistent IP addresses found in config ('{configured_ip}' vs '{ip_in_config}'). Using the first one found for comparison.")
 
