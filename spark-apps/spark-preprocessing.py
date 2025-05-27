@@ -6,7 +6,7 @@ from pyspark.sql.types import IntegerType, FloatType, StringType, DateType, Doub
 # --- Cấu hình ---
 # Đường dẫn HDFS được lấy từ cấu hình của bạn (core-site.xml: fs.defaultFS)
 HDFS_NAMENODE = "hdfs://host.docker.internal:9000" # Hoặc "hdfs://192.168.1.155:9000" nếu host.docker.internal không hoạt động như mong đợi
-HDFS_INPUT_PATH = f"{HDFS_NAMENODE}/bigdata/raw_data/2023_*.csv"
+HDFS_INPUT_PATH = f"{HDFS_NAMENODE}/bigdata/raw_data/2023*.csv"
 HDFS_OUTPUT_PATH_PARQUET = f"{HDFS_NAMENODE}/bigdata/processed_data/historical_flights.parquet"
 # HDFS_OUTPUT_PATH_CSV = f"{HDFS_NAMENODE}/bigdata/processed_data/historical_flights.csv"
 
